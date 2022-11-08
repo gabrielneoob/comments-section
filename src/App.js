@@ -4,6 +4,12 @@ import CommentList from "./CommentList";
 
 function App() {
   const [dados, setDados] = useState(dataJson);
+  const LOCAL_STORAGE_KEY = 'app.comment';
+
+  useEffect(() => {
+    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(dados))
+    console.log(localStorage);
+  }, [dados])
 
 
 
