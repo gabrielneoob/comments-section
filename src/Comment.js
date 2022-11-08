@@ -17,7 +17,7 @@ const Comment = ({ comment, dados }) => {
       </div>
 
       <div className='user-container'>
-        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '10px' }}>
           <div className='user-information'>
             <div className='user-img'>
               <img src={require(`./assets/images/avatars/image-${comment.user.username}.png`)}></img>
@@ -25,13 +25,13 @@ const Comment = ({ comment, dados }) => {
             <h3 className='user-name'>{comment.user.username}</h3>
             <div className='created-at'>{comment.createdAt}</div>
           </div>
-
           <div className='reply'>
-            <i class="fa-sharp fa-solid fa-reply"></i>
+            <i className="fa-sharp fa-solid fa-reply"></i>
             <span>Reply</span>
           </div>
         </div>
 
+        <div className='user-comment'>{comment.content}</div>
 
       </div>
 

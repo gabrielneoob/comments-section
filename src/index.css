@@ -21,6 +21,10 @@
 
 }
 
+img {
+  width: 100%;
+}
+
 .app {
   height: 100vh;
   background-color: var(--very-light-gray);
@@ -28,15 +32,18 @@
 }
 
 .comment-container {
-  max-width: 700px;
+  max-width: 800px;
   margin: 0 auto;
 }
 
 .comment-box {
   background: var(--white);
-  padding: 15px;
+  padding: 25px;
   margin-bottom: 15px;
   border-radius: 5px;
+  display: flex;
+  gap: 15px;
+  /* background-image: url('./assets/images/avatars/image-amyrobson.png'); */
 }
 
 .comment-box .score-box {
@@ -44,11 +51,11 @@
   padding: 8px;
   color: var(--modarete-blue);
   font-weight: 900;
-  width: max-content;
+  max-width: 35px;
   display: grid;
   justify-items: center;
   gap: 5px;
-  border-radius: 5px;
+  border-radius: 6px;
 }
 
 .plus,
@@ -58,4 +65,53 @@
 
 .score-box {
   font-size: 0.9rem;
+  max-height: 90px;
+}
+
+.user-container {
+  width: 100%;
+}
+
+.user-container .user-name {
+  color: var(--dark-blue);
+  font-size: 1rem;
+}
+
+.user-information {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.user-img {
+  max-height: 33px;
+}
+
+.user-img img {
+  max-width: 33px;
+  height: 100%;
+
+}
+
+.created-at {
+  color: var(--garyish-blue);
+}
+
+.reply {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--modarete-blue);
+  cursor: pointer;
+}
+
+.reply span {
+  font-weight: 700;
+}
+
+.user-comment {
+  letter-spacing: 1.22px;
+  line-height: 1.5;
+  color: var(--garyish-blue);
+  font-weight: 500;
 }
