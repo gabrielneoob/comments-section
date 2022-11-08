@@ -2,6 +2,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: 'Rubik', sans-serif;
 }
 
 :root {
@@ -23,4 +24,38 @@
 .app {
   height: 100vh;
   background-color: var(--very-light-gray);
+  padding: 50px 0;
+}
+
+.comment-container {
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.comment-box {
+  background: var(--white);
+  padding: 15px;
+  margin-bottom: 15px;
+  border-radius: 5px;
+}
+
+.comment-box .score-box {
+  background: var(--light-gray);
+  padding: 8px;
+  color: var(--modarete-blue);
+  font-weight: 900;
+  width: max-content;
+  display: grid;
+  justify-items: center;
+  gap: 5px;
+  border-radius: 5px;
+}
+
+.plus,
+.minus {
+  cursor: pointer;
+}
+
+.score-box {
+  font-size: 0.9rem;
 }
