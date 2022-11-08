@@ -21,5 +21,6 @@
 }
 
 .app {
-  color: var(--modarete-blue)
+  height: 100vh;
+  background-color: var(--very-light-gray);
 }
