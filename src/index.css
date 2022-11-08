@@ -36,6 +36,17 @@ img {
   margin: 0 auto;
 }
 
+.reply-container {
+  background: var(--white);
+  padding: 25px;
+  margin-bottom: 15px;
+  border-radius: 5px;
+  display: flex;
+  gap: 15px;
+  max-width: 700px;
+  position: relative;
+}
+
 .comment-box {
   background: var(--white);
   padding: 25px;
@@ -46,7 +57,7 @@ img {
   /* background-image: url('./assets/images/avatars/image-amyrobson.png'); */
 }
 
-.comment-box .score-box {
+.score-box {
   background: var(--light-gray);
   padding: 8px;
   color: var(--modarete-blue);
@@ -97,7 +108,7 @@ img {
   color: var(--garyish-blue);
 }
 
-.reply {
+.reply-btn {
   display: flex;
   align-items: center;
   gap: 8px;
@@ -109,9 +120,31 @@ img {
   font-weight: 700;
 }
 
-.user-comment {
+.user-comment,
+.user-replie {
   letter-spacing: 1.22px;
   line-height: 1.5;
   color: var(--garyish-blue);
   font-weight: 500;
+}
+
+.reply-container::before {
+  content: '';
+  width: 3px;
+  height: calc(109%);
+  background: var(--light-gray);
+  display: block;
+
+  position: absolute;
+  top: 0;
+  left: -50px;
+
+}
+
+.trash-btn {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  color: var(--soft-red);
+  cursor: pointer;
 }

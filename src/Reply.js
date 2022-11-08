@@ -1,27 +1,20 @@
 import React, { useEffect } from 'react'
-import Reply from './Reply';
 
-const Comment = ({ comment, dados }) => {
-  const currentUser = comment.user.username;
+const Reply = ({ replie, dados }) => {
 
-  function teste() {
-    const newDados = dados.comments = [...dados.comments, { id: 3, content: 'oi' }]
-    console.log(dados);
-  }
+  const currentUser = replie.user.username;
 
-  // useEffect(() => {
-  //   console.log('comentario', comment);
-  //   console.log(currentUser);
-  //   console.log(dados.currentUser.username);
-  // }, [])
-
+  useEffect(() => {
+    console.log(currentUser);
+    console.log(dados.currentUser.username);
+  }, [replie])
 
   return (
-    <>
-      <div className='comment-box'>
+    <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+      <div className='reply-container'>
         <div className='score-box'>
           <div className='plus'><i className="fa-solid fa-plus"></i></div>
-          <div className='score' onClick={teste}>{comment.score}</div>
+          <div className='score'>{replie.score}</div>
           <div className='minus'><i className="fa-solid fa-minus"></i></div>
         </div>
 
@@ -29,10 +22,10 @@ const Comment = ({ comment, dados }) => {
           <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '10px' }}>
             <div className='user-information'>
               <div className='user-img'>
-                <img src={require(`./assets/images/avatars/image-${comment.user.username}.png`)}></img>
+                <img src={require(`./assets/images/avatars/image-${replie.user.username}.png`)}></img>
               </div>
-              <h3 className='user-name'>{comment.user.username}</h3>
-              <div className='created-at'>{comment.createdAt}</div>
+              <h3 className='user-name'>{replie.user.username}</h3>
+              <div className='created-at'>{replie.createdAt}</div>
             </div>
             <div style={{ display: 'flex', gap: '10px' }}>
               {currentUser === dados.currentUser.username ? <div className='trash-btn'>
@@ -44,15 +37,14 @@ const Comment = ({ comment, dados }) => {
                 <span>Reply</span>
               </div>
             </div>
-          </div>
-          <div className='user-comment'>{comment.content}</div>
-        </div>
-      </div >
 
-      {comment.replies.map((replie) => <Reply dados={dados} replie={replie} key={replie.id} />)}
-    </>
+          </div>
+          <div className='user-replie'>{replie.content}</div>
+        </div>
+      </div>
+    </div>
 
   )
 }
 
-export default Comment
+export default Reply
