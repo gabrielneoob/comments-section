@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import dataJson from './data.json';
 import CommentList from "./CommentList";
+import CurrentUserComment from "./CurrentUserComment";
 
 function App() {
   const [dados, setDados] = useState(dataJson);
@@ -21,6 +22,7 @@ function App() {
   return (
     <div className="app">
       <CommentList dados={dados} />
+      <CurrentUserComment dados={dados} />
     </div>
   );
 }
