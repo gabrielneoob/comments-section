@@ -31,7 +31,7 @@ const CurrentCommentReply = ({ dados, comment, setDados, setCommentReply }) => {
 
 
   return (
-    <form className='current-user-form' onSubmit={handleAddReply}>
+    <form className='current-user-form' style={{ maxWidth: '700px', marginRight: '0' }} onSubmit={handleAddReply}>
       <div className='current-user-img'>
         <img src={require(`./assets/images/avatars/image-${dados.currentUser.username}.png`)} />
       </div>

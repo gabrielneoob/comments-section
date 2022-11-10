@@ -1,15 +1,33 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 
 const Reply = ({ replie, dados, setDados }) => {
 
   const currentUser = replie.user.username;
   const [score, setScore] = useState(replie.score);
-  const [editValue, setEditValue] = useState(false)
+  const [editValue, setEditValue] = useState(false);
+  const [inputText, setInputText] = useState(replie.content);
 
-  // useEffect(() => {
-  console.log(replie);
-  //   console.log(dados.currentUser.username);
-  // }, [replie])
+  const currentInput = useRef();
+
+  const inputStyle = {
+    outline: 'none',
+    width: '100%',
+    border: '1.8px solid var(--light-gray)',
+    borderRadius: '5px',
+    padding: '20px 10px',
+    lineHeight: '28px'
+  }
+
+  useEffect(() => {
+    console.log(replie);
+  }, [replie])
+
+  function handleChangeInput(e) {
+    const texto = currentInput.current.value;
+    setInputText(texto);
+    replie.content = inputText;
+    setDados({ ...dados })
+  }
 
   function plusScore() {
     setScore((previous) => previous + 1)
@@ -28,11 +46,11 @@ const Reply = ({ replie, dados, setDados }) => {
   return (
     <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
       <div className='reply-container'>
-        <div className='score-box'>
+        {replie.user.username !== dados.currentUser.username ? <div className='score-box'>
           <div className='plus' onClick={plusScore}><i className="fa-solid fa-plus"></i></div>
           <div className='score'>{replie.score}</div>
           <div className='minus' onClick={minusScore}><i className="fa-solid fa-minus"></i></div>
-        </div>
+        </div> : null}
 
         <div className='user-container'>
           <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '10px' }}>
@@ -44,8 +62,8 @@ const Reply = ({ replie, dados, setDados }) => {
               <div className='created-at'>{replie.createdAt}</div>
             </div>
             <div style={{ display: 'flex', gap: '10px' }}>
-              {currentUser === dados.currentUser.username ? <div className='edit-btn'>
-                <i class="fa-solid fa-pen-to-square"></i>
+              {currentUser === dados.currentUser.username ? <div className='edit-btn' onClick={(() => setEditValue((previousValue) => !previousValue))}>
+                <i className="fa-solid fa-pen-to-square"></i>
                 <span>Edit</span>
               </div> : null}
               {currentUser === dados.currentUser.username ? <div className='trash-btn'>
@@ -60,7 +78,7 @@ const Reply = ({ replie, dados, setDados }) => {
             </div>
 
           </div>
-          {editValue ? <input type='text' value={replie.content} /> : <div className='user-replie'>{replie.content}</div>}
+          {editValue ? <input type='text' value={inputText} style={inputStyle} ref={currentInput} onChange={handleChangeInput} onFocus={((e) => currentInput.current.style.borderColor = 'hsl(238, 40%, 52%)')} onBlur={(() => currentInput.current.style.borderColor = '#aaa')} /> : <div className='user-replie'>{replie.content}</div>}
         </div>
       </div>
     </div>

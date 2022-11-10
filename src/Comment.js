@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import Reply from './Reply';
 import CurrentUserComment from './CurrentUserComment';
 import CurrentCommentReply from './CurrentCommentReply';
@@ -6,16 +6,32 @@ import CurrentCommentReply from './CurrentCommentReply';
 const Comment = ({ comment, dados, setDados }) => {
   const [score, setScore] = useState(comment.score);
   const [commentReply, setCommentReply] = useState(false)
+  const [editValue, setEditValue] = useState(false);
   const currentUser = comment.user.username;
+  const [inputText, setInputText] = useState(comment.content);
+
+  const currentInput = useRef();
+
+  const inputStyle = {
+    outline: 'none',
+    width: '100%',
+    border: '1.8px solid var(--light-gray)',
+    borderRadius: '5px',
+    padding: '20px 10px',
+    lineHeight: '28px'
+  }
 
 
   // useEffect(() => {
   //   console.log(comment);
   // }, [])
 
-  function teste() {
-    const newDados = dados.comments = [...dados.comments, { id: 3, content: 'oi' }]
-    console.log(dados);
+
+  function handleChangeInput(e) {
+    const texto = currentInput.current.value;
+    setInputText(texto);
+    comment.content = inputText;
+    setDados({ ...dados })
   }
 
   function plusScore() {
@@ -42,11 +58,12 @@ const Comment = ({ comment, dados, setDados }) => {
   return (
     <>
       <div className='comment-box'>
-        <div className='score-box'>
+        {comment.user.username !== dados.currentUser.username ? <div className='score-box'>
           <div className='plus' onClick={plusScore}><i className="fa-solid fa-plus"></i></div>
-          <div className='score' onClick={teste}>{comment.score}</div>
+          <div className='score'>{comment.score}</div>
           <div className='minus' onClick={minusScore}><i className="fa-solid fa-minus"></i></div>
-        </div>
+        </div> : null}
+
 
         <div className='user-container'>
           <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '10px' }}>
@@ -58,19 +75,22 @@ const Comment = ({ comment, dados, setDados }) => {
               <div className='created-at'>{comment.createdAt}</div>
             </div>
             <div style={{ display: 'flex', gap: '10px' }}>
+              {currentUser === dados.currentUser.username ? <div className='edit-btn' onClick={(() => setEditValue((previousValue) => !previousValue))}>
+                <i className="fa-solid fa-pen-to-square"></i>
+                <span>Edit</span>
+              </div> : null}
               {currentUser === dados.currentUser.username ? <div className='trash-btn'>
-                <i class="fa-solid fa-trash"></i>
+                <i className="fa-solid fa-trash"></i>
                 <span>Delete</span>
               </div> : null}
-              <div className='reply-btn' onClick={(() => {
-                setCommentReply((previous) => !previous)
-              })}>
+              {currentUser !== dados.currentUser.username ? <div className='reply-btn'>
                 <i className="fa-sharp fa-solid fa-reply"></i>
                 <span>Reply</span>
-              </div>
+              </div> : null}
+
             </div>
           </div>
-          <div className='user-comment'>{comment.content}</div>
+          {editValue ? <input type='text' value={inputText} style={inputStyle} ref={currentInput} onChange={handleChangeInput} onFocus={((e) => currentInput.current.style.borderColor = 'hsl(238, 40%, 52%)')} onBlur={(() => currentInput.current.style.borderColor = '#aaa')} /> : <div className='user-replie'>{comment.content}</div>}
         </div>
       </div >
       {comment.replies.map((replie) => <Reply dados={dados} setDados={setDados} replie={replie} key={replie.id} />)}
