@@ -7,22 +7,18 @@ const CurrentUserComment = ({ dados, setDados }) => {
   const inputText = useRef();
 
   useEffect(() => {
-    console.log(dados);
-  }, [])
+    dados.comments = [...comments]
+    setDados({ ...dados })
+  }, [comments])
 
   function handleChange(e) {
     const text = inputText.current.value;
-    console.log(text)
     setCurrentInput(text)
   }
 
   function handleAddComment(e) {
     e.preventDefault()
-    const newComments = [...comments, { id: randomNumber, content: inputText.current.value, createdAt: 'now', replies: [], score: 0, user: { image: { png: require(`./assets/images/avatars/image-${dados.currentUser.username}.png`) }, username: dados.currentUser.username } }];
-
-    dados.comments = [...newComments]
-
-    setDados({ ...dados })
+    setComments([...comments, { id: randomNumber, content: inputText.current.value, createdAt: 'now', replies: [], score: 0, user: { image: { png: require(`./assets/images/avatars/image-${dados.currentUser.username}.png`) }, username: dados.currentUser.username } }])
   }
 
 

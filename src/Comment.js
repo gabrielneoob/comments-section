@@ -5,10 +5,11 @@ import CurrentCommentReply from './CurrentCommentReply';
 
 const Comment = ({ comment, dados, setDados }) => {
   const [score, setScore] = useState(comment.score);
-  const [commentReply, setCommentReply] = useState(false)
+  const [commentReply, setCommentReply] = useState(false);
   const [editValue, setEditValue] = useState(false);
-  const currentUser = comment.user.username;
   const [inputText, setInputText] = useState(comment.content);
+  const [commentDelete, setCommentDelete] = useState(dados.comments)
+  const currentUser = comment.user.username;
 
   const currentInput = useRef();
 
@@ -22,16 +23,22 @@ const Comment = ({ comment, dados, setDados }) => {
   }
 
 
-  // useEffect(() => {
-  //   console.log(comment);
-  // }, [])
+  useEffect(() => {
 
+    setDados({ ...dados })
+    dados.comments = [...commentDelete]
+    console.log(commentDelete);
+  }, [commentDelete])
+
+  useEffect(() => {
+    comment.content = inputText;
+    setDados({ ...dados })
+
+  }, [inputText])
 
   function handleChangeInput(e) {
     const texto = currentInput.current.value;
     setInputText(texto);
-    comment.content = inputText;
-    setDados({ ...dados })
   }
 
   function plusScore() {
@@ -48,6 +55,11 @@ const Comment = ({ comment, dados, setDados }) => {
     }
   }
 
+  function deleteComment() {
+    const newComments = dados.comments.filter((item) => item.id !== comment.id)
+    setCommentDelete(newComments)
+    dados.comments = [...newComments]
+  }
   // useEffect(() => {
   //   console.log('comentario', comment);
   //   console.log(currentUser);
@@ -79,21 +91,22 @@ const Comment = ({ comment, dados, setDados }) => {
                 <i className="fa-solid fa-pen-to-square"></i>
                 <span>Edit</span>
               </div> : null}
-              {currentUser === dados.currentUser.username ? <div className='trash-btn'>
+              {currentUser === dados.currentUser.username ? <div className='trash-btn' onClick={deleteComment}>
                 <i className="fa-solid fa-trash"></i>
                 <span>Delete</span>
               </div> : null}
-              {currentUser !== dados.currentUser.username ? <div className='reply-btn'>
+              {currentUser !== dados.currentUser.username ? <div className='reply-btn' onClick={(() => {
+                setCommentReply((previous) => !previous)
+              })}>
                 <i className="fa-sharp fa-solid fa-reply"></i>
                 <span>Reply</span>
               </div> : null}
-
             </div>
           </div>
-          {editValue ? <input type='text' value={inputText} style={inputStyle} ref={currentInput} onChange={handleChangeInput} onFocus={((e) => currentInput.current.style.borderColor = 'hsl(238, 40%, 52%)')} onBlur={(() => currentInput.current.style.borderColor = '#aaa')} /> : <div className='user-replie'>{comment.content}</div>}
+          {editValue ? <input type='text' value={inputText} style={inputStyle} ref={currentInput} onChange={handleChangeInput} onFocus={((e) => currentInput.current.style.borderColor = 'hsl(238, 40%, 52%)')} onBlur={(() => currentInput.current.style.borderColor = "#aaa")} /> : <div className='user-replie'>{comment.content}</div>}
         </div>
       </div >
-      {comment.replies.map((replie) => <Reply dados={dados} setDados={setDados} replie={replie} key={replie.id} />)}
+      {comment.replies.map((replie) => <Reply comment={comment} dados={dados} setDados={setDados} replie={replie} key={replie.id} />)}
 
       {commentReply ? <CurrentCommentReply setCommentReply={setCommentReply} setDados={setDados} dados={dados} comment={comment} /> : null}
 
