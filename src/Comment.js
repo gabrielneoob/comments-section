@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import Reply from './Reply';
 import CurrentUserComment from './CurrentUserComment';
+import CurrentCommentReply from './CurrentCommentReply';
 
 const Comment = ({ comment, dados, setDados }) => {
   const [score, setScore] = useState(comment.score);
@@ -8,9 +9,9 @@ const Comment = ({ comment, dados, setDados }) => {
   const currentUser = comment.user.username;
 
 
-  useEffect(() => {
-    console.log(comment);
-  }, [])
+  // useEffect(() => {
+  //   console.log(comment);
+  // }, [])
 
   function teste() {
     const newDados = dados.comments = [...dados.comments, { id: 3, content: 'oi' }]
@@ -24,9 +25,11 @@ const Comment = ({ comment, dados, setDados }) => {
   }
 
   function minusScore() {
-    setScore((previous) => previous + 1)
-    comment.score -= 1;
-    setDados({ ...dados })
+    if (score > 0) {
+      setScore((previous) => previous - 1)
+      comment.score -= 1;
+      setDados({ ...dados })
+    }
   }
 
   // useEffect(() => {
@@ -70,9 +73,11 @@ const Comment = ({ comment, dados, setDados }) => {
           <div className='user-comment'>{comment.content}</div>
         </div>
       </div >
-      {commentReply ? <CurrentUserComment commentReply={commentReply} dados={dados} comment={comment} /> : null}
+      {comment.replies.map((replie) => <Reply dados={dados} setDados={setDados} replie={replie} key={replie.id} />)}
 
-      {comment.replies.map((replie) => <Reply dados={dados} replie={replie} key={replie.id} />)}
+      {commentReply ? <CurrentCommentReply setCommentReply={setCommentReply} setDados={setDados} dados={dados} comment={comment} /> : null}
+
+
     </>
 
   )
