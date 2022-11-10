@@ -4,10 +4,10 @@ const Reply = ({ replie, dados }) => {
 
   const currentUser = replie.user.username;
 
-  useEffect(() => {
-    console.log(currentUser);
-    console.log(dados.currentUser.username);
-  }, [replie])
+  // useEffect(() => {
+  //   console.log(currentUser);
+  //   console.log(dados.currentUser.username);
+  // }, [replie])
 
   return (
     <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
@@ -29,7 +29,7 @@ const Reply = ({ replie, dados }) => {
             </div>
             <div style={{ display: 'flex', gap: '10px' }}>
               {currentUser === dados.currentUser.username ? <div className='trash-btn'>
-                <i class="fa-solid fa-trash"></i>
+                <i className="fa-solid fa-trash"></i>
                 <span>Delete</span>
               </div> : null}
               <div className='reply-btn'>

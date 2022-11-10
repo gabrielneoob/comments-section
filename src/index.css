@@ -31,6 +31,11 @@ img {
   padding: 50px 0;
 }
 
+html {
+  height: 100vh;
+  background-color: var(--very-light-gray);
+}
+
 .comment-container {
   max-width: 800px;
   margin: 0 auto;
@@ -62,7 +67,7 @@ img {
   padding: 8px;
   color: var(--modarete-blue);
   font-weight: 900;
-  max-width: 35px;
+  width: 38px;
   display: grid;
   justify-items: center;
   gap: 5px;
@@ -72,6 +77,13 @@ img {
 .plus,
 .minus {
   cursor: pointer;
+  transition: 0.3s ease-in-out;
+  color: var(--grayish-blue);
+}
+
+.plus:hover,
+.minus:hover {
+  color: var(--modarete-blue);
 }
 
 .score-box {
@@ -116,6 +128,12 @@ img {
   gap: 8px;
   color: var(--modarete-blue);
   cursor: pointer;
+  transition: 0.2s opacity ease-in-out;
+}
+
+.reply-btn:hover,
+.trash-btn:hover {
+  opacity: 0.5;
 }
 
 .reply span {
@@ -149,6 +167,7 @@ img {
   gap: 7px;
   color: var(--soft-red);
   cursor: pointer;
+  transition: 0.2s opacity ease-in-out;
 }
 
 

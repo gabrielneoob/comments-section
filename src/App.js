@@ -4,25 +4,26 @@ import CommentList from "./CommentList";
 import CurrentUserComment from "./CurrentUserComment";
 
 function App() {
+
   const [dados, setDados] = useState(dataJson);
   const LOCAL_STORAGE_KEY = 'app.comment';
 
+
+  useEffect(() => {
+    const storagedDados = localStorage.getItem(LOCAL_STORAGE_KEY);
+    setDados(JSON.parse(storagedDados))
+  }, [])
+
   useEffect(() => {
     localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(dados))
-    console.log(localStorage);
   }, [dados])
 
 
 
-  useEffect(() => {
-    console.log(dados)
-
-  }, [])
-
   return (
     <div className="app">
-      <CommentList dados={dados} />
-      <CurrentUserComment dados={dados} />
+      <CommentList dados={dados} setDados={setDados} />
+      <CurrentUserComment dados={dados} setDados={setDados} />
     </div>
   );
 }

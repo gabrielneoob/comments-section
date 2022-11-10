@@ -1,9 +1,9 @@
 import React from "react";
 import Comment from "./Comment";
-const CommentList = ({ dados }) => {
+const CommentList = ({ dados, setDados }) => {
   return (
     <div className="comment-container">
-      {dados.comments.map((comment) => <Comment dados={dados} comment={comment} key={comment.id} />)}
+      {dados.comments.map((comment) => <Comment setDados={setDados} dados={dados} comment={comment} key={comment.id} />)}
 
     </div>
   )
